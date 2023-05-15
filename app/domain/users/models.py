@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+# from sqlalchemy.orm import relationship
 
 from ...database import Base
 
@@ -8,13 +8,16 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_name = Column(String, )
-    email = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
-    is_active = Column(Boolean, default=True)
+    user_name = Column(String, unique=True, index=True)
+    user_last_name = Column(String, unique=True, index=True)
+    user_rol = Column(String, unique=True, index=True)
+    user_pricing_plan = Column(String, unique=True, index=True)
+    user_username = Column(String, unique=True, index=True)
+    user_email = Column(String, unique=True, index=True)
+    user_password = Column(String, unique=True, index=True)
+    user_profile_img_url = Column(String, unique=True, index=True)
+    user_loged = Column(Boolean, default=True)
 
-
-
-    items = relationship("Item", back_populates="owner")
+    # items = relationship("Item", back_populates="owner")
 
 
