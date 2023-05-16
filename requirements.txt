@@ -3,3 +3,5 @@ uvicorn
 sqlalchemy
 pydantic
 typing
+python-dotenv
+psycopg2

@@ -8,11 +8,12 @@ from pathlib import Path
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
 
-DATABASE_URI : str = os.getenv('DATABASE_URI')
+DATABASE_URI =  str = os.getenv('DATABASE_URI')
 
-engine = create_engine(DATABASE_URI, connect_args = {"check_same_thread": False})
-
-SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False,)
+engine = create_engine(DATABASE_URI, echo=True)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+
 

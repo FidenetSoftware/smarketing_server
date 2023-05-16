@@ -1,14 +1,18 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
+from typing import List
+
+
+#Obtener los datos de todos los usuarios
+def get_users(db: Session) -> List[schemas.UserBase]:
+    users = db.query(models.User).all()
+    return users;
 
 
 #Obtener los datos del usuario
 def get_user_by_email(db: Session, email: str):
     return db.query(models.User).filter(models.User.user_email == email).first()
 
-#Obtener los datos de todos los usuarios
-def get_users(db: Session):
-    return db.query(models.User).all();
 
 #Creación de un nuevo usuario
 def create_user(db: Session, user: schemas.UserCreate):
