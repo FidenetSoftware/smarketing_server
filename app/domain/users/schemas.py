@@ -24,7 +24,22 @@ class UserCreate(BaseModel):
     user_password : str
 
 #Signin
-class User(BaseModel):
+class SignedUser(BaseModel):
     user_email : str
     user_password : str
+    user_loged: bool = True
+
+
+class UpdatedUser(BaseModel):
+    user_email: str
+    user_loged: bool = False
+
+
+class DeletedUser(BaseModel):
+    id: int
+    
+
+
+    
+
 

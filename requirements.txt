@@ -5,3 +5,4 @@ pydantic
 typing
 python-dotenv
 psycopg2
+passlib[bcrypt] 

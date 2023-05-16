@@ -7,7 +7,7 @@ from ...database import Base
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     user_name = Column(String, unique=True, index=True)
     user_last_name = Column(String, unique=True, index=True)
     user_rol = Column(String, unique=True, index=True)
