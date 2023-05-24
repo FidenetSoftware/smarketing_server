@@ -1,10 +1,6 @@
-from sqlalchemy.orm import Query
+from typing import List, Optional
 from pydantic import BaseModel, validator
 from datetime import datetime
-
-#Importar la clase Search del esquema de search
-from ..search import schemas
-
 
 
 class OrmBase(BaseModel):
@@ -24,34 +20,8 @@ class OrmBase(BaseModel):
     class Config:
         orm_mode = True
 
-class TwExtractionBase(OrmBase):
-    tweet_id: int
-    tweet_text: str
-    tweet_created_at: datetime
-    tweet_public_metrics: str
-    tweet_attachments: str
-    tweet_entities: str
-    tweet_geo: str
-    tweet_lang: str
-    tweet_author_id: int
-    user_id: int
-    user_username: str
-    user_created_at: datetime
-    user_public_metrics: str
-    user_description: str
-    user_entities: str
-    user_location: str
-    user_profile_image_url: str
-    user_url: str
-    user_verified: str
-    search_id: schemas.SearchBase
-
-
-
-
-
-
-
-
-
-    
+class SearchBase(OrmBase):
+    id: int
+    content: str
+    creation_date: datetime
+    update_date: datetime
