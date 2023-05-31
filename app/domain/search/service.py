@@ -5,6 +5,6 @@ from ...hashing import Hasher
 
 
 #Obtener los datos en base a la palabra
-async def get_searchs(db: Session, search: str):
-    user = db.query(models.Search).filter(models.Search.content == search).first();
-    return user;
+async def get_search_by_content(db: Session, string: str):
+    result = db.query(models.Search).filter(models.Search.content.ilike(f'%{string}%')).all()
+    return result;
