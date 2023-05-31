@@ -57,6 +57,14 @@ async def get_user_by_email_and_password(db: Session, user: schemas.SignedUser):
     if verify_password:
     
         signed_user = db.query(models.User).filter(models.User.user_email == user.user_email).first();
+
+        #Cambiamos el estado del usuario a true
+        signed_user.user_loged = True
+
+        #Guardamos el cambio en la base de datos
+        db.commit()
+        db.refresh(signed_user)
+
         return signed_user;
 
 

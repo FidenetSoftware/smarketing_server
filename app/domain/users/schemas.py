@@ -27,7 +27,6 @@ class UserCreate(BaseModel):
 class SignedUser(BaseModel):
     user_email : str
     user_password : str
-    user_loged: bool = True
 
 
 class UpdatedUser(BaseModel):
