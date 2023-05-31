@@ -31,7 +31,6 @@ class SignedUser(BaseModel):
 
 class UpdatedUser(BaseModel):
     user_email: str
-    user_loged: bool = False
 
 
 class DeletedUser(BaseModel):
