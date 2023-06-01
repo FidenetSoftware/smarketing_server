@@ -6,14 +6,14 @@ from sqlalchemy.orm import Session
 
 from ..dependencies import get_db
 
-from ..domain.search_results import services, models, schemas
+from ..domain.search_results import services, schemas
 
 
 
 #Endpoint 
 router = APIRouter(tags=["search_results"])
 
-@router.get("/search_results/{id}", response_model= schemas.ResultsBase)
+@router.get("/search_results/{id}")
 async def get_results_by_searchId(id: int, db: Session = Depends(get_db)):
 
     result = await services.get_results_by_searchId(db, id)

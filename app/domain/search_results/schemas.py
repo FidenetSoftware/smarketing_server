@@ -1,10 +1,9 @@
 from sqlalchemy.orm import Query
 from pydantic import BaseModel, validator
-
+from ..search.schemas import SearchBase
 
 class OrmBase(BaseModel):
     # Common properties across orm models
-    id: int
 
     # Pre-processing validator that evaluates lazy relationships before any other validation
     # NOTE: If high throughput/performance is a concern, you can/should probably apply
@@ -23,6 +22,12 @@ class ResultsBase(OrmBase):
     id: int
     search_id: int
     # text_id: text_schema.TextBase 
+
+
+class SearchResult(OrmBase):
+    search: SearchBase
+    search_results: ResultsBase
+
 
 
 
