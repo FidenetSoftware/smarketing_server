@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, Request, Response
+from fastapi import Depends, FastAPI, Request, Response, WebSocket
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -9,7 +9,6 @@ from .routers.api import router as router_api
 from .database import engine, SessionLocal, Base
 
 from .config import API_PREFIX, ALLOWED_HOSTS
-
 
 ###
 # Main application file
@@ -62,3 +61,7 @@ async def db_session_middleware(request: Request, call_next):
     finally:
         request.state.db.close()
     return response
+
+
+
+

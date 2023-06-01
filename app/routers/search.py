@@ -26,3 +26,5 @@ async def get_data_by_date(string: str, db: Session = Depends(get_db)):
         return response;
 
     return result;
+
+

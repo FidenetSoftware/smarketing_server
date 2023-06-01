@@ -8,3 +8,4 @@ from ...hashing import Hasher
 async def get_search_by_content(db: Session, string: str):
     result = db.query(models.Search).filter(models.Search.content.ilike(f'%{string}%')).all()
     return result;
+
