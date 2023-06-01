@@ -1,14 +1,5 @@
 from sqlalchemy.orm import Query
 from pydantic import BaseModel, validator
-from datetime import datetime
-
-#Importar la clase Search del esquema de search
-from ..search import schemas
-from ..text import schemas
-
-from ..text import schemas as text_schema
-from ..search import schemas as search_schema
-
 
 
 class OrmBase(BaseModel):
@@ -30,8 +21,8 @@ class OrmBase(BaseModel):
 
 class ResultsBase(OrmBase):
     id: int
-    search_id: search_schema.SearchBase
-    text_id: text_schema.TextBase 
+    search_id: int
+    # text_id: text_schema.TextBase 
 
 
 

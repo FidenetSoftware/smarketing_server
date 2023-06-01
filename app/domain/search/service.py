@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
-from . import models, schemas
-from typing import List
+from . import models
 from ...hashing import Hasher
 
 

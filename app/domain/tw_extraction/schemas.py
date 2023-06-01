@@ -44,7 +44,7 @@ class TwExtractionBase(OrmBase):
     user_profile_image_url: str
     user_url: str
     user_verified: str
-    search_id: schemas.SearchBase
+    search_id: int
 
 
 

@@ -9,5 +9,5 @@ class Search_Results(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     search_id = Column(Integer, ForeignKey('search.id'))
     search = relationship("Search")
-    text_id = Column(Integer, ForeignKey('text.id'))
-    search = relationship("Text")
+    # text_id = Column(Integer, ForeignKey('text.id'))
+    # search = relationship("Text")
