@@ -7,7 +7,6 @@ class Search_Results(Base):
     __tablename__ = 'search_results'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    search_id = Column(Integer, ForeignKey('search.id'))
-    search = relationship("Search")
-    # text_id = Column(Integer, ForeignKey('text.id'))
-    # search = relationship("Text")
+    search_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    text_id = Column(ForeignKey('text.id'))
+    text = relationship("Text")

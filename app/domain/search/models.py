@@ -1,4 +1,5 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy.orm import relationship
 
 from ...database import Base
 
@@ -10,5 +11,4 @@ class Search(Base):
     creation_date = Column(DateTime(timezone=True), unique=True, index=True)
     update_date = Column(DateTime(timezone=True), unique=True, index=True)
 
-    
     

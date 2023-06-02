@@ -1,4 +1,5 @@
-from typing import List, Optional, Query
+from sqlalchemy.orm import Query
+from typing import List, Optional
 from pydantic import BaseModel
 from datetime import datetime
 from pydantic import BaseModel, validator

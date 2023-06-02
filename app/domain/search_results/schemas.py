@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Query
 from pydantic import BaseModel, validator
 from ..search.schemas import SearchBase
+from ..text.schema import TextBase
 
 class OrmBase(BaseModel):
     # Common properties across orm models
@@ -21,12 +22,16 @@ class OrmBase(BaseModel):
 class ResultsBase(OrmBase):
     id: int
     search_id: int
-    # text_id: text_schema.TextBase 
+    text_id: int
 
 
 class SearchResult(OrmBase):
     search: SearchBase
     search_results: ResultsBase
+    text_results: TextBase
+
+
+
 
 
 
