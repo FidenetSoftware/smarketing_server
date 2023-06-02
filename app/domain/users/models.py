@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-# from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship
 
 from ...database import Base
 
@@ -17,8 +17,10 @@ class User(Base):
     user_password = Column(String, unique=True, index=True)
     user_profile_img_url = Column(String, unique=True, index=True)
     user_loged = Column(Boolean, default=True)
+    search_id = Column(ForeignKey('search.id'))
+    
+    user_searchs = relationship("Search")
 
-    # items = relationship("Item", back_populates="owner")
 
     
 
