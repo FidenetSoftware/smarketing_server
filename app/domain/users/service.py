@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import update
 from . import models, schemas
 from typing import List
 from ...hashing import Hasher
@@ -80,4 +81,17 @@ async def update_user(db: Session, email: str):
     #Guardamos el cambio en la base de datos
     db.commit()
     db.refresh(user)
+    return user;
+
+
+#Guardar la búsqueda que el usuario haya realizado
+async def save_user_search(db: Session, email: str, search_id: int):
+
+    user = db.query(models.User).filter(models.User.user_email == email).first();
+
+    # Realizar la actualización en la base de datos
+    user.search_id = search_id
+    db.commit()
+    db.refresh(user)
+
     return user;

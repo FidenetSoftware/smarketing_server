@@ -33,6 +33,10 @@ class UpdatedUser(BaseModel):
     user_email: str
 
 
+class SaveSearch(BaseModel):
+    user_email: str
+    search_id: int
+
 class DeletedUser(BaseModel):
     id: int
     

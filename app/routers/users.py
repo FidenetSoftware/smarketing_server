@@ -85,7 +85,7 @@ async def sign_in_user(user: schemas.SignedUser, db: Session = Depends(get_db)):
 
 
 #Cerrar la sesión del usario
-@router.put("/users/sign-out", response_model= schemas.UserBase)
+@router.patch("/users/sign-out", response_model= schemas.UserBase)
 async def sign_out_user(user: schemas.UpdatedUser, db: Session = Depends(get_db)):
 
     #Combrobar que el usuario existe
@@ -103,3 +103,24 @@ async def sign_out_user(user: schemas.UpdatedUser, db: Session = Depends(get_db)
         return updated_user;
 
     
+
+#Añadir el registro de la búsqueda que el usuario ha realizado
+@router.patch("/users/save-search")
+async def save_user_search(user: schemas.SaveSearch, db: Session = Depends(get_db)):
+
+    #Combrobar que el usuario existe
+    result = await service.get_user_by_email(db, user.user_email);
+
+    if result is None:
+        response = responses.JSONResponse(
+            status_code=404,
+            content={"message": "User not found"}
+        )
+        return response;
+
+    else:
+        updated_user = await service.save_user_search(db, user.user_email, user.search_id);
+        return updated_user;
+
+
+
