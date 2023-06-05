@@ -17,9 +17,8 @@ class User(Base):
     user_password = Column(String, unique=True, index=True)
     user_profile_img_url = Column(String, unique=True, index=True)
     user_loged = Column(Boolean, default=True)
-    search_id = Column(ForeignKey('search.id'))
     
-    user_searchs = relationship("Search")
+
 
 
     

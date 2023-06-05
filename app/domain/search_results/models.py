@@ -9,4 +9,6 @@ class Search_Results(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     search_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     text_id = Column(ForeignKey('text.id'))
-    text = relationship("Text")
+    text = relationship("Text", back_populates="text_results")
+
+    

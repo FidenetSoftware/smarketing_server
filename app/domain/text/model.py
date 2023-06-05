@@ -14,7 +14,7 @@ class Text(Base):
     content_creation_date = Column(DateTime(timezone=True), unique=True, index=True)
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    text_results = relationship("Search_Results")
+    text_results = relationship("Search_Results", back_populates="text")
 
 
     
