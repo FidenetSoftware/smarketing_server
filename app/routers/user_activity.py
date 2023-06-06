@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from ..dependencies import get_db
 
-from ..domain.user_search import service, schema
+from ..domain.user_activity import service, schema
 from ..domain.users import service as user_service
 
 
