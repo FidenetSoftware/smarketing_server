@@ -1,5 +1,7 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, func, JSON
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, func
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import JSON
+
 
 from ...database import Base
 
@@ -10,7 +12,7 @@ class UserActivity(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     search_id = Column(Integer, ForeignKey('search.id'))
     activity_type = Column(String, unique=True, index=True)
-    activity_data = Column(JSON, nullable=False)
+    activity_data = Column(JSON)
     creation_date = Column(DateTime, default=func.now(), onupdate=func.now())
     update_date = Column(DateTime, default=func.now(), onupdate=func.now())
 

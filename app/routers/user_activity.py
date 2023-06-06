@@ -12,10 +12,10 @@ from ..domain.users import service as user_service
 
 
 #Endpoint 
-router = APIRouter(tags=["user_search"])
+router = APIRouter(tags=["user_activity"])
 
 
-@router.get("/user_search/{user_id}")
+@router.get("/user_activity/{user_id}")
 async def get_user_searches_by_id(id: int, db: Session = Depends(get_db)):
 
     #Combrobar que el usuario existe vía id
@@ -33,7 +33,7 @@ async def get_user_searches_by_id(id: int, db: Session = Depends(get_db)):
         return saved_search;
 
 
-@router.post("/user_search/save_search")
+@router.post("/user_activity/save_search")
 async def save_user_search(new_search: schema.SaveNewResult, db: Session = Depends(get_db)):
 
     #Combrobar que el usuario existe vía id
