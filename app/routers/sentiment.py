@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from ..dependencies import get_db
 
-from ..domain.sentiment_aws import service, schema
+from ..domain.sentiment import service, schema
 
 
 #Endpoint 

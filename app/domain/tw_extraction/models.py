@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from ...database import Base
 
 
-class  TW_Extraction(Base):
+class TW_Extraction(Base):
     __tablename__ = "tw_extraction"
 
     tweet_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
@@ -27,5 +27,6 @@ class  TW_Extraction(Base):
     user_profile_image_url = Column(String, unique=True, index=True)
     user_url = Column(String, unique=True, index=True)
     user_verified = Column(String, unique=True, index=True)
-    search_id = Column(Integer, ForeignKey('search.id'))
-    search = relationship("Search")
+    search_id = Column(ForeignKey('search.id'))
+    
+    search = relationship("Search", back_populates="tweet_searches")

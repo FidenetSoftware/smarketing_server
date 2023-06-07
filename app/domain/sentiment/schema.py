@@ -24,7 +24,6 @@ class SentimentBase(OrmBase):
     positive_score: float
     neutral_score: float
     negative_score: float
-    mixed_score: float
     creation_date: datetime
     update_date: datetime
    

@@ -11,5 +11,6 @@ class Search(Base):
     creation_date = Column(DateTime(timezone=True), unique=True, index=True)
     update_date = Column(DateTime(timezone=True), unique=True, index=True)
 
+    tweet_searches = relationship("TW_Extraction", back_populates="search")
 
     
