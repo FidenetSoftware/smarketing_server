@@ -26,3 +26,4 @@ class SearchBase(OrmBase):
     content: str
     creation_date: datetime
     update_date: datetime
+

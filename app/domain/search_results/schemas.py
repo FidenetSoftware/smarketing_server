@@ -25,12 +25,6 @@ class ResultsBase(OrmBase):
     text_id: int
 
 
-class SearchResult(OrmBase):
-    search: SearchBase
-    search_results: ResultsBase
-    text_results: TextBase
-
-
 
 
 
