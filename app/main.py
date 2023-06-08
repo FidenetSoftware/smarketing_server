@@ -1,67 +1,52 @@
-from fastapi import Depends, FastAPI, Request, Response, WebSocket
+from fastapi import FastAPI, WebSocket
+from fastapi.responses import HTMLResponse
 
-from fastapi.middleware.cors import CORSMiddleware
+app = FastAPI()
 
-from starlette.exceptions import HTTPException
-
-from .routers.api import router as router_api
-
-from .database import engine, SessionLocal, Base
-
-from .config import API_PREFIX, ALLOWED_HOSTS
-
-###
-# Main application file
-###
-
-def get_application() -> FastAPI:
-    ''' Configure, start and return the application '''
-    
-    ## Start FastApi App 
-    application = FastAPI()
-
-    ## Mapping api routes
-    application.include_router(router_api, prefix=API_PREFIX)
-
-    ## Allow cors
-    application.add_middleware(
-        CORSMiddleware,
-        allow_origins=ALLOWED_HOSTS or ["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-
-    ## Example of admin route
-    # application.include_router(
-    #     admin.router,
-    #     prefix="/admin",
-    #     tags=["admin"],
-    #     dependencies=[Depends(get_token_header)],
-    #     responses={418: {"description": "I'm a teapot"}},
-    # )
-    
-    return application
+html = """
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat</title>
+    </head>
+    <body>
+        <h1>WebSocket Chat</h1>
+        <form action="" onsubmit="sendMessage(event)">
+            <input type="text" id="messageText" autocomplete="off"/>
+            <button>Send</button>
+        </form>
+        <ul id='messages'>
+        </ul>
+        <script>
+            var ws = new WebSocket("ws://localhost:8000/ws");
+            ws.onmessage = function(event) {
+                var messages = document.getElementById('messages')
+                var message = document.createElement('li')
+                var content = document.createTextNode(event.data)
+                message.appendChild(content)
+                messages.appendChild(message)
+            };
+            function sendMessage(event) {
+                var input = document.getElementById("messageText")
+                ws.send(input.value)
+                input.value = ''
+                event.preventDefault()
+            }
+        </script>
+    </body>
+</html>
+"""
 
 
-app = get_application()
+@app.get("/")
+async def get():
+    return HTMLResponse(html)
 
 
-@app.middleware("http")
-async def db_session_middleware(request: Request, call_next):
-    '''
-    The middleware we'll add (just a function) will create
-    a new SQLAlchemy SessionLocal for each request, add it to
-    the request and then close it once the request is finished.
-    '''
-    response = Response("Internal server error", status_code=500)
-    try:
-        request.state.db = SessionLocal()
-        response = await call_next(request)
-    finally:
-        request.state.db.close()
-    return response
-
-
-
-
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
+        print(data)
