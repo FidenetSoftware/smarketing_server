@@ -18,7 +18,7 @@ async def get_tweet_by_searchId(db: Session, id: int):
 
 #Obtener los resultados en base a la fecha:
 
-#Último día
+#En base a la semana
 async def get_tweets_by_day(db:Session, id:int, num_days: int):
     
     # Obtener la fecha y hora actual
@@ -36,12 +36,15 @@ async def get_tweets_by_day(db:Session, id:int, num_days: int):
     results = query.all()
     return results
 
-    #Última semana
-
-    #Último mes
-
-    #En un periodo de tiempo 
-
-    #Último año
+    
+    
+#En base al mes y el año
+async def get_tweets_by_date_range(db: Session, id: int, start_date: datetime, end_date: datetime):
+    query = db.query(models.TW_Extraction).filter(
+        models.TW_Extraction.tweet_created_at.between(start_date, end_date),
+        models.TW_Extraction.search_id == id
+    )
+    results = query.all()
+    return results
 
 
