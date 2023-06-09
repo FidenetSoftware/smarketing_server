@@ -7,4 +7,6 @@ python-dotenv
 psycopg2
 passlib[bcrypt] 
 pydantic-sqlalchemy
-websockets
+python-socketio
+python-socketio[client]
+python-socketio[asyncio_client]
