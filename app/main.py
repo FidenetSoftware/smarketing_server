@@ -1,52 +1,58 @@
-from fastapi import FastAPI, WebSocket
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
+from .routers.api import router
+from .database import SessionLocal
+from .config import API_PREFIX, ALLOWED_HOSTS
+from .sockets import sio_app
+import uvicorn
 
-app = FastAPI()
+###
+# Main application file
+###
 
-html = """
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Chat</title>
-    </head>
-    <body>
-        <h1>WebSocket Chat</h1>
-        <form action="" onsubmit="sendMessage(event)">
-            <input type="text" id="messageText" autocomplete="off"/>
-            <button>Send</button>
-        </form>
-        <ul id='messages'>
-        </ul>
-        <script>
-            var ws = new WebSocket("ws://localhost:8000/ws");
-            ws.onmessage = function(event) {
-                var messages = document.getElementById('messages')
-                var message = document.createElement('li')
-                var content = document.createTextNode(event.data)
-                message.appendChild(content)
-                messages.appendChild(message)
-            };
-            function sendMessage(event) {
-                var input = document.getElementById("messageText")
-                ws.send(input.value)
-                input.value = ''
-                event.preventDefault()
-            }
-        </script>
-    </body>
-</html>
-"""
+def get_application() -> FastAPI:
+    ''' Configure, start and return the application '''
+    
+    ## Start FastApi App 
+    application = FastAPI()
+
+    ## Mapping api routes
+    application.include_router(router, prefix=API_PREFIX)
+
+    application.mount('/', sio_app)
+
+    ## Allow cors
+    application.add_middleware(
+        CORSMiddleware,
+        allow_origins=ALLOWED_HOSTS or ["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+    
+    return application
 
 
-@app.get("/")
-async def get():
-    return HTMLResponse(html)
+app = get_application()
 
 
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")
-        print(data)
+@app.middleware("http")
+async def db_session_middleware(request: Request, call_next):
+    '''
+    The middleware we'll add (just a function) will create
+    a new SQLAlchemy SessionLocal for each request, add it to
+    the request and then close it once the request is finished.
+    '''
+    response = Response("Internal server error", status_code=500)
+    try:
+        request.state.db = SessionLocal()
+        response = await call_next(request)
+    finally:
+        request.state.db.close()
+    return response
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host='0.0.0.0', port=8000)
+
+
