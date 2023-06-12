@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from ..dependencies import get_db
 
-from ..domain.tw_extraction import service, schemas
+from ..domain.tw_extraction import service
 
 from datetime import datetime
 
@@ -54,7 +54,7 @@ async def get_tweets_by_last_day(id: int, start_date: datetime, end_date: dateti
 
 
     #Combrobar que el usuario existe vía id
-    result = await service.get_tweets_by_day(db, id, start_date, end_date)
+    result = await service.get_tweets_by_date_range(db, id, start_date, end_date)
 
     if result is None:
         response = responses.JSONResponse(
