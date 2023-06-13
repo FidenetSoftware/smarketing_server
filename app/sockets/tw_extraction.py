@@ -1,24 +1,8 @@
-import socketio
-from .database import SessionLocal
+from ..database import SessionLocal
+from ..domain.tw_extraction import service
+from .sockets_config import sio_server
 
-from .domain.tw_extraction import service
-
-sio_server = socketio.AsyncServer(
-    async_mode='asgi',
-    cors_allowed_origins='*'
-)
-sio_app = socketio.ASGIApp(
-    sio_server
-)
-
-
-@sio_server.event
-async def connect(sid, environ, auth):
-    print(sid, 'connected')
-    await sio_server.emit('login', {'join': sid})
-
-@sio_server.on('twitter extractions by days')
-async def recive_message(sid, data):
+async def get_tweets_by_days(sid, data):
    
     db = SessionLocal()
     try:
@@ -28,10 +12,9 @@ async def recive_message(sid, data):
         await sio_server.emit('twitter extractions by days', {'data': result}, to=sid)
     finally:
         db.close()
-    
 
-@sio_server.on('twitter extractions by dates')
-async def recive_message(sid, data):
+
+async def get_tweets_by_date_range(sid, data):
    
     db = SessionLocal()
     try:
@@ -43,9 +26,3 @@ async def recive_message(sid, data):
         await sio_server.emit('twitter extractions by dates', {'data': result}, to=sid)
     finally:
         db.close()
-
-
-
-# @sio_server.event
-# async def disconnect(sid):
-#     print('disconnect ', sid)

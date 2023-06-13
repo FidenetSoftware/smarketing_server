@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from .routers.api import router
 from .database import SessionLocal
 from .config import API_PREFIX, ALLOWED_HOSTS
-from .sockets import sio_app
+from .sockets.sockets_config import sio_app, sio_server
+from .sockets.events import load_socket_events
 import uvicorn
 
 ###
@@ -19,6 +20,7 @@ def get_application() -> FastAPI:
     ## Mapping api routes
     application.include_router(router, prefix=API_PREFIX)
 
+    load_socket_events(sio_server)
     application.mount('/', sio_app)
 
     ## Allow cors

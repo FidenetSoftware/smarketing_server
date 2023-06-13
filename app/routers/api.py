@@ -1,7 +1,5 @@
 from fastapi import APIRouter
 
-from ..config import ROUTE_PREFIX_V1
-
 from . import users
 from . import search
 from . import user_activity
