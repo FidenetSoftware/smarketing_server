@@ -21,7 +21,7 @@ def get_application() -> FastAPI:
     application.include_router(router, prefix=API_PREFIX)
 
     load_socket_events(sio_server)
-    application.mount('/', sio_app)
+    application.mount('/ws', sio_app)
 
     ## Allow cors
     application.add_middleware(
