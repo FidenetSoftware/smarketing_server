@@ -1,9 +1,7 @@
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
-from . import models, schemas
-from ...utils import convert_to_json, get_count
-
-from typing import List
+from . import models
+from ...utils import convert_to_json
 import json
 
 
@@ -16,8 +14,6 @@ async def get_tweet_by_searchId(db: Session, id: int):
 
 
    
-
-
 #Obtener los resultados en base a la fecha:
 
 #En base a la semana
@@ -32,7 +28,7 @@ async def get_tweets_by_day(db:Session, id:int, num_days: int):
     # Definir la fecha de fin como la fecha y hora actual
     end_date = current_date
 
-    query = db.query(models.TW_Extraction.tweet_public_metrics, models.TW_Extraction.tweet_created_at).filter(
+    query = db.query(models.TW_Extraction.tweet_created_at).filter(
         models.TW_Extraction.tweet_created_at.between(start_date, end_date),
         models.TW_Extraction.search_id == id)
     
@@ -40,7 +36,7 @@ async def get_tweets_by_day(db:Session, id:int, num_days: int):
     count = query.count()
 
     # Serialize the results using the custom conversion function
-    results_json = json.dumps(results, default=lambda obj: convert_to_json(obj, ['tweet_public_metrics', 'tweet_created_at']))
+    results_json = json.dumps(results, default=lambda obj: convert_to_json(obj, ['tweet_created_at']))
 
     # Cargar la cadena JSON en un objeto Python
     parsed_data = json.loads(results_json)
