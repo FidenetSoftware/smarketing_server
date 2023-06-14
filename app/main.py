@@ -6,6 +6,8 @@ from .config import API_PREFIX, ALLOWED_HOSTS
 from .sockets.sockets_config import sio_app, sio_server
 from .sockets.events import load_socket_events
 import uvicorn
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+
 
 ###
 # Main application file
@@ -37,7 +39,7 @@ def get_application() -> FastAPI:
 
 app = get_application()
 
-
+@app.add_middleware(HTTPSRedirectMiddleware)
 @app.middleware("http")
 async def db_session_middleware(request: Request, call_next):
     '''
