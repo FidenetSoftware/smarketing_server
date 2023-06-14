@@ -5,7 +5,7 @@ from ..domain.tw_extraction import service
 
 sio_server = socketio.AsyncServer(
     async_mode='asgi',
-    cors_allowed_origins='*'
+    cors_allowed_origins='https://smartketing-29bx.onrender.com'
 )
 
 sio_app = socketio.ASGIApp(
