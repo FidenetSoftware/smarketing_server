@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install --upgrade --force-reinstall -r requirements.txt
+RUN pip install 'uvicorn[standard]'
 RUN pip list
 
 
