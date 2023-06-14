@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install --upgrade --force-reinstall -r requirements.txt
+RUN pip install "python-socketio[client]"
+RUN pip install "python-socketio[asyncio_client]"
 RUN pip list
 
 
