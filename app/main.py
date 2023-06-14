@@ -26,8 +26,8 @@ def get_application() -> FastAPI:
     application.mount('/', sio_app)
 
     ## Allow cors
+    application.add_middleware(HTTPSRedirectMiddleware)
     application.add_middleware(
-        HTTPSRedirectMiddleware,
         CORSMiddleware,
         allow_origins=ALLOWED_HOSTS or ["*"],
         allow_credentials=True,
