@@ -27,6 +27,7 @@ def get_application() -> FastAPI:
 
     ## Allow cors
     application.add_middleware(
+        HTTPSRedirectMiddleware,
         CORSMiddleware,
         allow_origins=ALLOWED_HOSTS or ["*"],
         allow_credentials=True,
@@ -39,7 +40,6 @@ def get_application() -> FastAPI:
 
 app = get_application()
 
-@app.add_middleware(HTTPSRedirectMiddleware)
 @app.middleware("http")
 async def db_session_middleware(request: Request, call_next):
     '''
