@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install --upgrade --force-reinstall -r requirements.txt
-RUN source/smartketing-env/bin/activate
 RUN pip list
 
 
