@@ -13,7 +13,7 @@ sio_app = socketio.ASGIApp(
 )
 
 @sio_server.event
-async def connect(sid, environ, auth):
+async def connect(sid, environ):
     print(sid, 'connected')
     await sio_server.emit('login', {'join': sid})
 
