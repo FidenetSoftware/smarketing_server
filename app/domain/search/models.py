@@ -12,6 +12,6 @@ class Search(Base):
     update_date = Column(DateTime(timezone=True), unique=True, index=True)
 
     tweet_searches = relationship("TW_Extraction", back_populates="search")
-    youtube_searches = relationship("Yt_Extraction", back_populates="youtube")
+    youtube_searches = relationship("YT_Extraction", back_populates="youtube")
 
     

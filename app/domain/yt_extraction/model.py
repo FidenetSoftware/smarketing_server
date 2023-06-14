@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 from ...database import Base
 
-class Yt_Extraction(Base):
+class YT_Extraction(Base):
     __tablename__ = "yt_extraction"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)

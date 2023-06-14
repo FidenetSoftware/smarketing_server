@@ -24,7 +24,7 @@ class OrmBase(BaseModel):
     class Config:
         orm_mode = True
 
-class TwExtractionBase(OrmBase):
+class YTExtractiomBase(OrmBase):
     id: int
     video_id: int
     kind: str
