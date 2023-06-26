@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 
 from ...database import Base
@@ -13,5 +13,6 @@ class Search(Base):
 
     tweet_searches = relationship("TW_Extraction", back_populates="search")
     youtube_searches = relationship("YT_Extraction", back_populates="youtube")
-
+    news_searches = relationship("News_Extraction", back_populates="news")
+    twitch_searches = relationship("Twitch_Extraction", back_populates="twitch")
     

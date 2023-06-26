@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 from ...database import Base
 
 class YT_Extraction(Base):
+
     __tablename__ = "yt_extraction"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
@@ -19,10 +20,10 @@ class YT_Extraction(Base):
     category_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     defaultlanguage = Column(String, unique=True, index=True)
     defaultaudiolanguage = Column(String, unique=True, index=True)
-    viewcount = Column(Integer, primary_key=True, index=True)
-    likecount = Column(Integer, primary_key=True, index=True)
-    favoritecount = Column(Integer, primary_key=True, index=True)
-    commentcount = Column(Integer, primary_key=True, index=True)
+    viewcount = Column(Integer, index=True)
+    likecount = Column(Integer, index=True)
+    favoritecount = Column(Integer, index=True)
+    commentcount = Column(Integer, index=True)
     search_id = Column(ForeignKey('search.id'))
 
     youtube = relationship("Search", back_populates="youtube_searches")
