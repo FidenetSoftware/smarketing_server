@@ -30,7 +30,7 @@ async def get_tweets_by_day(db:Session, id:int, num_days: int):
 
     query = db.query(models.TW_Extraction.tweet_created_at).filter(
         models.TW_Extraction.tweet_created_at.between(start_date, end_date),
-        models.TW_Extraction.search_id == id)
+        models.TW_Extraction.search_id == id).order_by(models.TW_Extraction.tweet_created_at)
     
     results = query.all()
     count = query.count()
@@ -56,7 +56,7 @@ async def get_tweets_by_date_range(db: Session, id: int, start_date: datetime, e
     query = db.query(models.TW_Extraction.tweet_created_at).filter(
         models.TW_Extraction.tweet_created_at.between(start, end),
         models.TW_Extraction.search_id == id
-    )
+    ).order_by(models.TW_Extraction.tweet_created_at)
 
     results = query.all()
     count = query.count()

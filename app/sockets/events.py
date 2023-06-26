@@ -2,7 +2,7 @@ from .sockets_config import connect
 from .tw_extraction import get_tweets_by_days, get_tweets_by_date_range
 from .yt_extraction import get_yt_extractions_by_days, get_yt_extractions_by_date_range
 from .news_extraction import get_news_extractions_by_days, get_news_extractions_by_date_range
-
+from .twitch_extraction import get_twitch_extraction_by_days, get_twitch_extraction_by_date_range
 
 def load_socket_events(sio_server):
 
@@ -19,3 +19,8 @@ def load_socket_events(sio_server):
     #News_Extraction table events
     sio_server.on('news extractions by days')(get_news_extractions_by_days)
     sio_server.on('news extractions by dates')(get_news_extractions_by_date_range)
+
+    #Twitch_Extraction table events
+    sio_server.on('twitch extractions by days')(get_twitch_extraction_by_days)
+    sio_server.on('twitch extractions by dates')(get_twitch_extraction_by_date_range)
+    

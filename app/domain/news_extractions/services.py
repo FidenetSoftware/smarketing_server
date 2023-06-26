@@ -20,7 +20,7 @@ async def get_news_by_day(db:Session, id:int, num_days:int):
 
     query = db.query(models.News_Extraction.news_date).filter(
         models.News_Extraction.news_date.between(start_date, end_date),
-        models.News_Extraction.search_id == id)
+        models.News_Extraction.search_id == id).order_by(models.News_Extraction.news_date)
     
     results = query.all()
     count = query.count()
@@ -47,7 +47,7 @@ async def get_news_by_date_range(db: Session, id: int, start_date: datetime, end
     query = db.query(models.News_Extraction.news_date).filter(
         models.News_Extraction.news_date.between(start, end),
         models.News_Extraction.search_id == id
-    )
+    ).order_by(models.News_Extraction.news_date)
 
     results = query.all()
     count = query.count()
