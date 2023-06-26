@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 from ...database import Base
 
-class News_Extractions(Base):
+class News_Extraction(Base):
     __tablename__ = "news_extractions"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
@@ -16,7 +16,9 @@ class News_Extractions(Base):
     link = Column(String, unique=True, index=True)
     clean_url = Column(String, unique=True, index=True)
     media = Column(Text, unique=True, index=True)
-    raw_data = Column(Text, unique=True, index=True)
-    search_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    raw_data = Column(Text, unique=True, index=True)    
+    search_id = Column(ForeignKey('search.id'))
 
-    youtube = relationship("Search", back_populates="youtube_searches")
+
+
+    news = relationship("Search", back_populates="news_searches")
