@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, DateTime, Integer, String, Text
+from sqlalchemy import Column, DateTime, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from ...database import Base
@@ -14,7 +14,7 @@ class Text(Base):
     content_creation_date = Column(DateTime(timezone=True), unique=True, index=True)
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    text_results = relationship("Search_Results", back_populates="text")
+    tokenization = relationship("Tokenization", back_populates="text")
 
 
     
