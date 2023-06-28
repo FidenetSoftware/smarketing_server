@@ -4,6 +4,7 @@ from .yt_extraction import get_yt_extractions_by_days, get_yt_extractions_by_dat
 from .news_extraction import get_news_extractions_by_days, get_news_extractions_by_date_range
 from .twitch_extraction import get_twitch_extraction_by_days, get_twitch_extraction_by_date_range
 from .ig_extraction import get_ig_extractions_by_days, get_ig_extractions_by_date_range
+from .tokenization import get_results_by_textId
 
 def load_socket_events(sio_server):
 
@@ -29,3 +30,5 @@ def load_socket_events(sio_server):
     sio_server.on('instagram extractions by days')(get_ig_extractions_by_days)
     sio_server.on('instagram extractions by dates')(get_ig_extractions_by_date_range)
     
+    #Tokenization table events
+    sio_server.on('get tokens')(get_results_by_textId)

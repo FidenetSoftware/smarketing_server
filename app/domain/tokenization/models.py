@@ -9,11 +9,10 @@ class Tokenization(Base):
 
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    text_id = Column(ForeignKey('text.id'))
+    text_id = Column(Integer, index=True, autoincrement=True)
     token = Column(String, unique=True, index=True)
     word = Column(String, unique=True, index=True)
     order_word = Column(Integer, index=True)
     creation_date = Column(DateTime(timezone=True), unique=True, index=True)
     update_date = Column(DateTime(timezone=True), unique=True, index=True)
 
-    text = relationship("Text", back_populates="tokenization")
