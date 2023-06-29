@@ -26,3 +26,15 @@ async def get_tweets_by_date_range(sid, data):
         await sio_server.emit('twitter extractions by dates', {'data': result}, to=sid)
     finally:
         db.close()
+
+
+async def get_twitter_user_information(sid, data):
+
+    db = SessionLocal()
+    try:
+        id = data['search_id']
+
+        result = await service.get_twitter_user_information(db, id)
+        await sio_server.emit('twitter user information', {'data': result}, to=sid)
+    finally:
+        db.close()
