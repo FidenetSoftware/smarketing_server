@@ -86,4 +86,4 @@ async def get_twitter_user_information(db: Session, id:int):
     # Cargar la cadena JSON en un objeto Python
     parsed_data = json.loads(results_json)
 
-    return parsed_data;
+    return parsed_data
