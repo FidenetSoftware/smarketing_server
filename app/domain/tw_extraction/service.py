@@ -74,5 +74,16 @@ async def get_tweets_by_date_range(db: Session, id: int, start_date: datetime, e
 
 
 
+#Obtener los datos del los usuarios en base al search_id
+async def get_twitter_user_information(db: Session, id:int):
 
+    query = db.query(models.TW_Extraction.user_id, models.TW_Extraction.user_name, models.TW_Extraction.user_username, models.TW_Extraction.user_public_metrics)
+    result = query.filter(models.TW_Extraction.search_id == id).all()
 
+    # Serialize the results using the custom conversion function
+    results_json = json.dumps(result, default=lambda obj: convert_to_json(obj, ['user_id', 'user_name', 'user_username', 'user_public_metrics']))
+
+    # Cargar la cadena JSON en un objeto Python
+    parsed_data = json.loads(results_json)
+
+    return parsed_data;
