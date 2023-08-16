@@ -23,10 +23,12 @@ def get_application() -> FastAPI:
     load_socket_events(sio_server)
     application.mount('/', sio_app)
 
+    origins = ["http://localhost:3000"]
+
     ## Allow cors
     application.add_middleware(
         CORSMiddleware,
-        allow_origins=ALLOWED_HOSTS or ["*"],
+        allow_origins=origins or ["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
